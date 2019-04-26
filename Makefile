@@ -11,13 +11,10 @@ SRC	= $(wildcard src/*.c)
 _OBJS	= $(patsubst src/%.c, %.o, $(SRC))
 OBJS	= $(addprefix $(OBJDIR), $(_OBJS))
 
-CFLAGS = -Wall -pedantic -g -I$(INCLDIR)
+CFLAGS = -Wall -pedantic -I$(INCLDIR)
 
-.PHONY: all, clean, init
-all: init $(BIN)
-
-init:
-	mkdir -p bin obj
+.PHONY: all, clean
+all: $(BINDIR) $(OBJDIR) $(BIN)
 
 $(BIN): $(BINDIR) $(OBJS)
 	$(CC) $(OBJS) -o $(BIN)
