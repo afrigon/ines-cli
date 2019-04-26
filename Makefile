@@ -13,8 +13,11 @@ OBJS	= $(addprefix $(OBJDIR), $(_OBJS))
 
 CFLAGS = -Wall -pedantic -g -I$(INCLDIR)
 
-.PHONY: all, clean
-all: $(BIN)
+.PHONY: all, clean, init
+all: init $(BIN)
+
+init:
+	mkdir -p bin obj
 
 $(BIN): $(BINDIR) $(OBJS)
 	$(CC) $(OBJS) -o $(BIN)
