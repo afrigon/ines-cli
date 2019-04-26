@@ -69,7 +69,7 @@ void print_ines_header(ines_header* header) {
     printf("Character ROM size: %dKB\n", header->chr_size * 8);
 
     uint8_t mapper = header->control1 >> 4 | (header->control2 & 0xF0);
-    printf("Mapper: %s\n", get_mapper(mapper));
+    printf("Mapper: %s (%d)\n", get_mapper(mapper), mapper);
 
     printf("Mirroring: ");
     if (header->control1 & 8) printf("four screen\n");
