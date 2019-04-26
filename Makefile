@@ -4,30 +4,29 @@ BINDIR	= bin/
 OBJDIR	= obj/
 SRCDIR	= src/
 
-NAME = ines
-BIN	= $(addprefix $(BINDIR), $(NAME))
+TARGET = ines
+BIN	= $(addprefix $(BINDIR), $(TARGET))
 
 SRC	= $(wildcard src/*.c)
 _OBJS	= $(patsubst src/%.c, %.o, $(SRC))
 OBJS	= $(addprefix $(OBJDIR), $(_OBJS))
 
-CFLAGS = -Wall -std=c99 -pedantic -g -I$(INCLDIR)
+CFLAGS = -Wall -pedantic -g -I$(INCLDIR)
 
 .PHONY: all, clean
 all: $(BIN)
 
-clean:
-	rm -rf $(BINDIR) $(OBJDIR)
-
 $(BIN): $(BINDIR) $(OBJS)
-	$(CC) $(OFLAGS) $(OBJS) -o $(BIN)
+	$(CC) $(OBJS) -o $(BIN)
+
+$(OBJDIR)%.o: $(SRCDIR)%.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(BINDIR):
 	mkdir -p $(BINDIR)
 
-$(OBJS): $(OBJDIR) $(SRC)
-	$(CC) $(CFLAGS) -c $(SRC) -o $(OBJS)
-
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
+clean:
+	rm -rf $(BIN) $(OBJS)
